@@ -53,13 +53,35 @@ web-dir参数为你放置ServerStatus/status的根目录，务必修改成自己
 ```
 ./sergate --config=config.json --web-dir=/home/wwwroot/default   
 ```
+启动服务
+```
+service sergate start 
+systemctl start sergate (centos7)
 
+```
+通过以root身份运行将其添加到自动启动
+```
+ update-rc.d sergate defaults 
+ systemctl enable sergate (centos7)
+ ```
 【客户端配置】：
 客户端程序在ServerStatus/clients文件夹下 （服务器总流量监控暂支持client.py客户端）       
 一、vim client.py, 修改username, password        
+```
+SERVER = "status.botox.bz" 
+PORT = 35601 
+USER = "s01" 
+PASSWORD = "some-hard-to-guess-copy-paste-password" 
+INTERVAL = 1 
+# Update interval 
+
+```
 
 二、python client.py 运行即可。      
-
+```
+nohup ./client.py &> /dev/null & 
+```
+ 
 打开云探针页面，就可以正常的监控。接下来把服务器和客户端脚本自行加入开机启动，或者进程守护，或以后台方式运行即可！  
 
 # 为什么会有ServerStatus中文版：
